@@ -1,0 +1,19 @@
+@import "~taro-ui/dist/style/components/flex.scss";
+@import "~taro-ui/dist/style/components/card.scss";
+
+.header {
+    .date-wrap {
+        .date {
+            font-weight: 700;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    }
+    .weather {
+        display: flex;
+        align-items: flex-end;
+        color: #969696;
+    }
+}
+.type-card-wrap {
+    margin: 80px 0;
+}
