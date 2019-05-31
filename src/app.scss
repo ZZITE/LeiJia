@@ -2,6 +2,11 @@
 
 page { 
     font-size: 28px;
+    color: #000000;
+}
+image {
+    width: 100%;
+    max-width: 100%;
 }
 .padding {
     padding: 20px 24px;
@@ -14,5 +19,16 @@ page {
  * --------------------------------------------------
  * 自动生成 text-ts, text-sm
  */
-$fontSizeMaps: (ts: 20px, xs: 24px, ls: 26px, sm: 28px, md: 32px, ml:36px, lg:40px, xg:48px, xxg:60px, xxlg: 100px);
+$fontSizeMaps: (ts: 20px, xs: 24px, ls: 26px, sm: 28px, md: 32px, ml:36px, lg:40px, xg:48px, xxg:60px, xxxg:80px, xxlg: 100px);
 @include classes('text-', 'font-size', $fontSizeMaps);
+
+
+.text-gray {
+    color: #808080;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}

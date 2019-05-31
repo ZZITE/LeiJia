@@ -1,11 +1,11 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
-import dayjs from 'dayjs';
-import toObject from 'dayjs/plugin/toObject';
-import { AtCard } from "taro-ui";
-import './index.scss';
+import { View } from '@tarojs/components';
 
-dayjs.extend(toObject);
+import Calendar from './Calendar';
+import HomeHeader from './HomeHeader';
+import MyCard from './../../components/MyCard';
+
+import './index.scss';
 
 export default class Index extends Component {
   config = {
@@ -14,29 +14,46 @@ export default class Index extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
-      date: {},
-      weather: '气温30°，是适合喝汽水的日子'
+    this.state = {
+      showCalendar: false,
+      articleList: []
     };
   }
 
-  componentWillMount() {
-    const now = dayjs();
-    const month = now.format('MMM');
-    const day = now.toObject();
-    day.month = month;
-    this.setState({
-      date: { ...day }
+  componentWillMount() {}
+
+  goArticleDetail() {
+    Taro.navigateTo({
+      url: '/pages/article/index'
     });
   }
 
-  goArticle() {
-    Taro.navigateTo({
-      url: '/pages/article/index'
-    })
+  getArticleList() {
+    const articleList = [
+      {
+        headerInfo: 'VOL.2428',
+        imageSrc: 'http://image.wufazhuce.com/FqK3ynGfBfokKU86905kgsuU1Inu',
+        imageInfo: '插画 | 林国成 《无法容纳的风景-山口待渡》',
+        text:
+          '当我们面对一个害怕的人，一桩恐惧的事，一份使人不安的心境时，唯一克服这种感觉的态度，便是面对它。',
+        author: '三毛'
+      }
+    ];
+    this.setState({
+      articleList
+    });
   }
 
-  componentDidMount() {}
+  onCalendarToggle() {
+    const showCalendar = !this.state.showCalendar;
+    this.setState({
+      showCalendar
+    });
+  }
+
+  componentDidMount() {
+    this.getArticleList();
+  }
 
   componentWillUnmount() {}
 
@@ -44,36 +61,26 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  renderHeader() {
-    const { date, weather } = this.state;
+  render() {
+    const { showCalendar, articleList } = this.state;
+    const list = articleList.map(item => {
+      return (
+        <View
+          key={item.heardInfo}
+          className='type-card-wrap'
+          onClick={this.goArticleDetail.bind(this)}
+        >
+          <MyCard article={item} />
+        </View>
+      );
+    });
     return (
-      <View className='padding header'>
-        <View className='at-row'>
-          <View className='at-col date-wrap'>
-            <Text className='date margin-right-10 text-xg'>{date.date}</Text>
-            <Text className='margin-right-10'>{date.month}</Text>
-            <Text className='text-xs'>{date.years}</Text>
-          </View>
-          <View className='at-col at-col-1 at-col--auto weather'>
-            <Text className='text-xs'>{weather}</Text>
-          </View>
+      <View className='index'>
+        <HomeHeader onCalendarToggle={this.onCalendarToggle.bind(this)} />
+        <View className='main'>
+          {showCalendar ? <Calendar /> : articleList.length>0 && list}
         </View>
       </View>
     );
-  }
-
-  render() {
-    return <View className='index'>
-      {this.renderHeader()}
-      <View className='type-card-wrap' onClick={this.goArticle.bind(this)}>
-        <AtCard
-          note='标签'
-          extra='类别'
-          title='这是个标题'
-        >
-        这也是内容区 可以随意定义功能
-        </AtCard>
-      </View>
-    </View>;
   }
 }
