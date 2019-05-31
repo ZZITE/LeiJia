@@ -37,6 +37,14 @@ export default class Index extends Component {
         text:
           '当我们面对一个害怕的人，一桩恐惧的事，一份使人不安的心境时，唯一克服这种感觉的态度，便是面对它。',
         author: '三毛'
+      },
+      {
+        headerInfo: 'VOL.2428',
+        imageSrc: 'http://image.wufazhuce.com/FqK3ynGfBfokKU86905kgsuU1Inu',
+        imageInfo: '插画 | 林国成 《无法容纳的风景-山口待渡》',
+        text:
+          '当我们面对一个害怕的人，一桩恐惧的事，一份使人不安的心境时，唯一克服这种感觉的态度，便是面对它。',
+        author: '三毛'
       }
     ];
     this.setState({
@@ -67,7 +75,7 @@ export default class Index extends Component {
       return (
         <View
           key={item.heardInfo}
-          className='type-card-wrap'
+          className='card-wrap'
           onClick={this.goArticleDetail.bind(this)}
         >
           <MyCard article={item} />
